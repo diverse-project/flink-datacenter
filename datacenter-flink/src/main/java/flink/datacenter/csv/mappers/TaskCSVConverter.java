@@ -31,12 +31,13 @@ public class TaskCSVConverter {
 		
 		flink.datacenter.pojos.Job job = DataCenterFactory.getInstance().createOrGetJobwithID(csvTask.getJob_id());
 		
-		job.setHostMachine(machine);
-		machine.getJobs().add(job);
+		//machine.getJobs().add(job);
 		
 		task.setParentJob(job);
+		task.setHostMachine(machine);
+		
 		job.getTasks().add(task);
-			
+		machine.getTasks().add(task);
 		return task;
 	}
 }

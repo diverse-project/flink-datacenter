@@ -95,7 +95,7 @@ public class DatacenterStreaming {
 		 * organizing data by machine 
 		 */
         
-        KeyedStream<Task,Long> taskByMachine = stream.keyBy(task -> task.getParentJob().getHostMachine().get_id());
+        KeyedStream<Task,Long> taskByMachine = stream.keyBy(task -> task.getHostMachine().get_id());
         
         try {
 			env.execute();

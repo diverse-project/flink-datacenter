@@ -7,7 +7,7 @@ public class Job {
 	
 	private Long _id;
 	
-	private Machine hostMachine;
+//	private List<Machine>  hostMachines = new LinkedList<Machine>();
 	
 	private List<Task> tasks = new LinkedList<Task>();
 	
@@ -21,9 +21,9 @@ public class Job {
 	 * @param _id
 	 * @param hostMachine
 	 */
-	public Job(Long _id, Machine hostMachine) {
+	public Job(Long _id, List<Machine> hostMachines) {
 		this._id = _id;
-		this.hostMachine = hostMachine;
+		//this.hostMachines = hostMachines;
 	}
 
 	/**
@@ -40,20 +40,18 @@ public class Job {
 		this._id = _id;
 	}
 
+//	/**
+//	 * @return the hostMachines
+//	 */
+//	public List<Machine> getHostMachines() {
+//		return hostMachines;
+//	}
+//
+//
+//	
 	/**
-	 * @return the hostMachine
+	 * @return hostMachines
 	 */
-	public Machine getHostMachine() {
-		return hostMachine;
-	}
-
-	/**
-	 * @param hostMachine the hostMachine to set
-	 */
-	public void setHostMachine(Machine hostMachine) {
-		this.hostMachine = hostMachine;
-	}
-	
 	public List<Task> getTasks() {
 		return tasks;
 	}

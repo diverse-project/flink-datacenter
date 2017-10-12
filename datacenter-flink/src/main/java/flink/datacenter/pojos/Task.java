@@ -3,6 +3,8 @@ package flink.datacenter.pojos;
 public class Task {
 
 		private Job parentJob;
+		
+		private Machine hostMachine;
 	
 		private long taskIndex;
 		
@@ -310,6 +312,7 @@ public class Task {
 		/**
 		 * @param _id
 		 * @param parentJob
+		 * @param hostMachine
 		 * @param startTime
 		 * @param endTime
 		 * @param cPURate
@@ -328,7 +331,7 @@ public class Task {
 		 * @param aggregationType
 		 * @param sampledCPUUsage
 		 */
-		public Task(long _id, Job parentJob, long startTime, long endTime, float cPURate, float canonicalMemUsage,
+		public Task(long _id, Job parentJob, Machine hostMachine, long startTime, long endTime, float cPURate, float canonicalMemUsage,
 				float assignedMemUsage, float unmappedCache, float totalPageCache, float maxMemoryUsage, float iOTime,
 				float localDiskUsage, float maxCPURate, float maxDiskIOTime,
 				float cyclesPerInstruction, float memoryAccessPerInstruction, float samplePortion,
@@ -336,6 +339,7 @@ public class Task {
 			super();
 			this.taskIndex = _id;
 			this.parentJob = parentJob;
+			this.hostMachine = hostMachine;
 			this.startTime = startTime;
 			this.endTime = endTime;
 			CPURate = cPURate;
@@ -357,6 +361,20 @@ public class Task {
 
 		public Task() {
 			super();
+		}
+
+		/**
+		 * @return The hosting machine
+		 */
+		public Machine getHostMachine() {
+			return hostMachine;
+		}
+
+		/**
+		 * @param hostMachine
+		 */
+		public void setHostMachine(Machine hostMachine) {
+			this.hostMachine = hostMachine;
 		}
 
 

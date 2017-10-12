@@ -7,11 +7,9 @@ public class Machine {
 
 	private Long _id;
 
-	private List<Job> jobs = new LinkedList<Job>();
+	private List<Task> tasks = new LinkedList<Task>();
 	
-	public List<Job> getJobs() {
-		return jobs;
-	}
+
 	public Long get_id() {
 		return _id;
 	}
@@ -30,6 +28,10 @@ public class Machine {
 	 */
 	public Machine() {
 		super();
+	}
+	public List<Task> getTasks() {
+		// TODO Auto-generated method stub
+		return tasks ;
 	}
 	
 
