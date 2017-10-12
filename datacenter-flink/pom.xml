@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.inria.rennes</groupId>
-  <artifactId>datacenter-data</artifactId>
+  <artifactId>datacenter-flink</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -30,7 +30,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 
 	<dependencies>
 		<dependency>
@@ -96,7 +96,7 @@
 					<version>${flink.version}</version>
 					<scope>provided</scope>
 				</dependency>
-				
+
 			</dependencies>
 
 			<build>
@@ -260,8 +260,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		
-			
+
+
 		<!-- If you want to use Java 8 Lambda Expressions uncomment the following lines -->
 		<!--=
 		<pluginManagement>
@@ -281,7 +281,7 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-		
+
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -323,6 +323,6 @@
 			</plugins>
 		</pluginManagement>
 		-->
-		
+
 	</build>
 </project>
