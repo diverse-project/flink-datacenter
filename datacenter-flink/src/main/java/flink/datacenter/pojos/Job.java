@@ -7,6 +7,8 @@ public class Job {
 	
 	private Long _id;
 	
+	private String name;
+	
 //	private List<Machine>  hostMachines = new LinkedList<Machine>();
 	
 	private List<Task> tasks = new LinkedList<Task>();
@@ -54,6 +56,12 @@ public class Job {
 	 */
 	public List<Task> getTasks() {
 		return tasks;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
