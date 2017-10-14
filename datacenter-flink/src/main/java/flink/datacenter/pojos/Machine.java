@@ -9,7 +9,8 @@ public class Machine {
 
 	private List<Task> tasks = new LinkedList<Task>();
 	
-
+	private String name; 
+	
 	public Long get_id() {
 		return _id;
 	}
@@ -32,6 +33,14 @@ public class Machine {
 	public List<Task> getTasks() {
 		// TODO Auto-generated method stub
 		return tasks ;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 
