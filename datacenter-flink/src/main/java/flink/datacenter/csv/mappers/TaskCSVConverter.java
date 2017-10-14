@@ -9,7 +9,7 @@ public class TaskCSVConverter {
 		flink.datacenter.pojos.Task task = new flink.datacenter.pojos.Task ();
 		
 		task.set_id(csvTask.getTaskIndex());
-		task.setAggregationType(csvTask.isAggregationType());
+		task.setAggregationType(csvTask.getAggregationType() == 1);
 		task.setStartTime(csvTask.getStartTime());
 		task.setEndTime(csvTask.getEndTime());
 		task.setCPURate(csvTask.getCPURate());

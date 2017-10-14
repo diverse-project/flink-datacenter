@@ -28,7 +28,7 @@ public class TaskMapper extends CsvMapping<flink.datacenter.csv.mappers.Task> {
 		mapProperty(CYCLES_PER_INSTRUCTION, Float.class, Task::setCyclesPerInstruction);
 		mapProperty(MEMORY_ACCESS_PER_INSTRUCTION, Float.class, Task::setMemoryAccessPerInstruction);
 		mapProperty(SAMPLE_PORTION, Float.class, Task::setSamplePortion);
-		mapProperty(AGGREGATION_TYPE, Boolean.class, Task::setAggregationType);
+		mapProperty(AGGREGATION_TYPE, Integer.class, Task::setAggregationType);
 		mapProperty(SAMPLED_CPU_USAGE, Float.class, Task::setCPURate);
 				
 	}

@@ -7,6 +7,8 @@ import de.bytefish.jtinycsvparser.tokenizer.StringSplitTokenizer;
 public class TaskCSVParser {
 
 	public static CsvParser<Task> TaskParser () {
-		return new CsvParser<Task>(new CsvParserOptions(true, new StringSplitTokenizer(",", true)), new TaskMapper(() -> new Task ()));
+		return new CsvParser<Task>(new CsvParserOptions(true, 
+														new StringSplitTokenizer(",", true)), 
+																new TaskMapper(() -> new Task ()));
 	}
 }

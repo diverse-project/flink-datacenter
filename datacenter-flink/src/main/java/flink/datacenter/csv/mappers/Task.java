@@ -38,7 +38,7 @@ public class Task {
 		
 		private float samplePortion;
 		
-		private boolean aggregationType;
+		private int aggregationType;
 		
 		private float sampledCPUUsage;
 		
@@ -68,7 +68,7 @@ public class Task {
 				float canonicalMemUsage, float assignedMemUsage, float unmappedCache, float totalPageCache,
 				float maxMemoryUsage, float iOTime, float localDiskUsage, float maxCPURate, float maxDiskIOTime,
 				float cyclesPerInstruction, float memoryAccessPerInstruction, float samplePortion,
-				boolean aggregationType, float sampledCPUUsage) {
+				int aggregationType, float sampledCPUUsage) {
 			super();
 			this.machine_id = machine_id;
 			this.job_id = job_id;
@@ -354,14 +354,14 @@ public class Task {
 		/**
 		 * @return the aggregationType
 		 */
-		public boolean isAggregationType() {
+		public int getAggregationType() {
 			return aggregationType;
 		}
 
 		/**
 		 * @param aggregationType the aggregationType to set
 		 */
-		public void setAggregationType(boolean aggregationType) {
+		public void setAggregationType(int aggregationType) {
 			this.aggregationType = aggregationType;
 		}
 
