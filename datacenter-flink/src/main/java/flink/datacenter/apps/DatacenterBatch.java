@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import flink.datacenter.pojos.Task;
-import flink.datacenter.sources.DataCenterSourceFunction;
+import flink.datacenter.sources.DatacenterSourceFunction;
 
 
 /**
@@ -83,7 +83,7 @@ public class DatacenterBatch {
         
         @SuppressWarnings("serial")
         //FIXME write a proper timestamp extractor
-		DataStream<Task> stream = env.addSource(new DataCenterSourceFunction(filePath));
+		DataStream<Task> stream = env.addSource(new DatacenterSourceFunction(filePath));
 //        		.assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Task>(){ 
 //                    
 //        			/* (non-Javadoc)

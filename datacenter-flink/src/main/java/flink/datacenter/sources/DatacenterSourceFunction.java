@@ -22,10 +22,10 @@ import flink.datacenter.csv.mappers.TaskCSVParser;
 import flink.datacenter.pojos.Task;
 
 @SuppressWarnings("serial")
-public class DataCenterSourceFunction implements SourceFunction<flink.datacenter.pojos.Task> {
+public class DatacenterSourceFunction implements SourceFunction<flink.datacenter.pojos.Task> {
 
 	private volatile boolean isRunning = true;
-	private static final Logger LOG = LoggerFactory.getLogger(DataCenterSourceFunction.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DatacenterSourceFunction.class);
 	
 	private String datacenterFilePath;
 	
@@ -33,7 +33,7 @@ public class DataCenterSourceFunction implements SourceFunction<flink.datacenter
 	/**
 	 * @param filePath
 	 */
-	public DataCenterSourceFunction(String filePath) {
+	public DatacenterSourceFunction(String filePath) {
 		this.setDatacenterFilePath(filePath);
 	}
 

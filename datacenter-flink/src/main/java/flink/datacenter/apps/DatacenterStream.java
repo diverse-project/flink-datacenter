@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import flink.datacenter.pojos.Task;
-import flink.datacenter.sources.DataCenterSourceFunction;
+import flink.datacenter.sources.DatacenterSourceFunction;
 
 
 /**
@@ -80,7 +80,7 @@ public class DatacenterStream {
 
         env.setParallelism(parallelism);
         
-		DataStream<Task> taskStream = env.addSource(new DataCenterSourceFunction(filePath));
+		DataStream<Task> taskStream = env.addSource(new DatacenterSourceFunction(filePath));
 		
 		DataStream<Tuple2<Long, String>> machineStream = taskStream.map(task -> new Tuple2<Long, String>(task.getHostMachine().get_id(),
 																										 task.getHostMachine().getName()))
