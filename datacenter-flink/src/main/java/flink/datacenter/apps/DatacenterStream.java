@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import flink.datacenter.pojos.Task;
 import flink.datacenter.sources.DatacenterSourceFunction;
+import flink.datacenter.sources.delayed.GaussianDelayedDatacenterSourceFunction;
+import flink.datacenter.sources.delayed.GaussianRxDelayedDatacenterSourceFunction;
 
 
 /**
@@ -80,44 +82,23 @@ public class DatacenterStream {
 
         env.setParallelism(parallelism);
         
-		DataStream<Task> taskStream = env.addSource(new DatacenterSourceFunction(filePath));
+		DataStream<Task> taskStream = env.addSource(new GaussianDelayedDatacenterSourceFunction(filePath, 10,2));
+//		DataStream<Task> taskStream = env.addSource(new DatacenterSourceFunction(filePath));
 		
-		DataStream<Tuple2<Long, String>> machineStream = taskStream.map(task -> new Tuple2<Long, String>(task.getHostMachine().get_id(),
-																										 task.getHostMachine().getName()))
-																   .keyBy(0)
-																   .reduce((x,y) -> x);
-		DataStream<Tuple2<Long,String>> jobStream = taskStream.map(task -> new Tuple2<Long, String>(task.getParentJob().get_id(),
-																									task.getParentJob().getName()))
-															  .keyBy(0)
-															  .reduce((x,y) -> x);
-		
-//		Table tasksTable = tableEnv.fromDataStream(taskStream);
-//		tableEnv.registerTable("tasks", tasksTable);
-//		
-//		Table machinesTable = tableEnv.fromDataStream(machineStream);
-//		tableEnv.registerTable("machines", machinesTable);
-//
-//		Table jobsTable = tableEnv.fromDataStream(jobStream);
-//		tableEnv.registerTable("jobs", tasksTable);
+//		DataStream<Tuple2<Long, String>> machineStream = taskStream.map(task -> new Tuple2<Long, String>(task.getHostMachine().get_id(),
+//																										 task.getHostMachine().getName()))
+//																   .keyBy(0)
+//																   .reduce((x,y) -> x);
+//		DataStream<Tuple2<Long,String>> jobStream = taskStream.map(task -> new Tuple2<Long, String>(task.getParentJob().get_id(),
+//																									task.getParentJob().getName()))
+//															  .keyBy(0)
+//															  .reduce((x,y) -> x);
+
 		
 
-        jobStream.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/jobs.out.cvs",WriteMode.OVERWRITE);
-        //taskStream.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/tasks.out.cvs",WriteMode.OVERWRITE);
-        machineStream.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/machines.out.cvs",WriteMode.OVERWRITE);
+//        jobStream.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/jobs.out.cvs",WriteMode.OVERWRITE);
+//        machineStream.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/machines.out.cvs",WriteMode.OVERWRITE);
 
-        //FIXME write a proper timestamp extractor		
-//        		.assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Task>(){ 
-//                    
-//        			/* (non-Javadoc)
-//        			 * Sorting data stream based on tasks start time
-//        			 * @see org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor#extractAscendingTimestamp(java.lang.Object)
-//        			 */
-//        			@Override
-//                    public long extractAscendingTimestamp(Task task) {
-//                        return task.getStartTime();
-//                    }
-//                });
-        
 		/**
 		 * organizing data by machine 
 		 */
@@ -134,7 +115,7 @@ public class DatacenterStream {
 														     .filter(tuple-> tuple.f1 > 0.02f);	
 		
 		DataStream<Tuple3<String, String, Integer>> jobsCountPerMachine = taskStream.map(task -> 
-																							new Tuple3<String, String, Integer>("machine#"+task.getHostMachine().get_id(), 
+																			new Tuple3<String, String, Integer>("machine#"+task.getHostMachine().get_id(), 
 																														        "task#"+task.getParentJob().get_id(),
 																																 1))
 																					.keyBy(0,1)
@@ -142,7 +123,7 @@ public class DatacenterStream {
 																					.reduce((tuple1, tuple2) -> new Tuple3<String, String, Integer> (tuple1.f0,tuple1.f1,tuple1.f2 + tuple2.f2));
         LOG.info("Finished the keying machine");
         //FIXME not writing to output
-        windowedCPUSumbyMachine.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/part-00000-of-00500.out.cvs",WriteMode.OVERWRITE);
+//        windowedCPUSumbyMachine.writeAsCsv("/home/amine/git/flink-datacenter/datacenter-flink/target/output/part-00000-of-00500.out.cvs",WriteMode.OVERWRITE);
         windowedCPUSumbyMachine.print();
         jobsCountPerMachine.print();
         try {
