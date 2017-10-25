@@ -15,16 +15,18 @@ import fr.inria.atlanmod.instantiator.GenericMetamodelConfig;
 public class DatacenterMetamodelConfig extends GenericMetamodelConfig {
 	
 	private int factor;
+	private boolean generateCSV;
+	private boolean generateModel;
 	
-	public int getFactor() {
-		return factor;
-	}
+	
 
 	private static int DEFAULT_FACTOR = DEFAULT_AVERAGE_REFERENCES_SIZE * DEFAULT_AVERAGE_REFERENCES_SIZE;
 	
 	public DatacenterMetamodelConfig(Resource metamodelResource, Range<Integer> elementsRange, long seed) {
 		super(metamodelResource, elementsRange, seed);
 		this.factor = DEFAULT_FACTOR;
+		generateCSV = true;
+		generateModel = true;
 	}
 	
 	@Override
@@ -55,5 +57,26 @@ public class DatacenterMetamodelConfig extends GenericMetamodelConfig {
 		this.factor = factor;
 		
 	}
+
+	public int getFactor() {
+		return factor;
+	}
+
+	public boolean isGenerateModel() {
+		return generateModel;
+	}
+
+	public void setGenerateModel(boolean generateModel) {
+		this.generateModel = generateModel;
+	}
+
+	public boolean isGenerateCSV() {
+		return generateCSV;
+	}
+
+	public void setGenerateCSV(boolean generateCSV) {
+		this.generateCSV = generateCSV;
+	}
+
 
 }

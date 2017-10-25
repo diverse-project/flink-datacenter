@@ -1,6 +1,5 @@
 package datacenter.instantiator;
 
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Iterator;
@@ -11,7 +10,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import datacenter.DatacenterFactory;
-import datacenter.util.DatacenterSwitch;
 import fr.inria.atlanmod.instantiator.GenerationException;
 import fr.inria.atlanmod.instantiator.GenericMetamodelConfig;
 import fr.inria.atlanmod.instantiator.GenericMetamodelGenerator;
@@ -22,8 +20,6 @@ public class DatacenterMetamodelGenerator extends GenericMetamodelGenerator{
 
 	protected DatacenterFactory factory; 
 	
-	// FIXME add it to application args
-	protected boolean generateCSV = true;
 	
 	public DatacenterMetamodelGenerator(GenericMetamodelConfig config) throws IllegalArgumentException {
 		super(config);
@@ -55,11 +51,11 @@ public class DatacenterMetamodelGenerator extends GenericMetamodelGenerator{
 						resource.getURI(), averageSize));
 
 				generator.generate(resource);
-				if (resource.isModified()) {
+				if (resource.isModified() && ((DatacenterMetamodelConfig) config).isGenerateModel()) {
 					LOGGER.info(MessageFormat.format("Saving resource {0}", resource.getURI()));
 						resource.save(Collections.emptyMap());
 				}
-				if (generateCSV) {
+				if (((DatacenterMetamodelConfig) config).isGenerateCSV()) {
 					LOGGER.info(MessageFormat.format("Exporting resource {0} to CSV", resource.getURI()));
 						exportToCSV(resource);
 				}

@@ -51,7 +51,7 @@ import jline.TerminalFactory;
 
 /**
  * @author <a href="mailto:abel.gomez-llana@inria.fr">Abel Gomez</a>
- * @author <a href="mailto:amine.benellam@inria.fr">Abel Gomez</a>
+ * @author <a href="mailto:amine.benellam@inria.fr">Amine BENELALLAM</a>
  */
 public class DatacenterGeneratorLauncher {
 	
@@ -92,11 +92,17 @@ public class DatacenterGeneratorLauncher {
 	private static final String DIAGNOSE	 				= "g";
 	private static final String DIAGNOSE_LONG				= "diagnose";
 
-	private static final String FACTOR	 				= "x";
-	private static final String FACTOR_LONG				= "factor";
+	private static final String FACTOR	 					= "x";
+	private static final String FACTOR_LONG					= "factor";
+	
+	private static final String GENERATE_MODEL				="m";
+	private static final String GENERATE_MODEL_LONG			="no-model";
+	
+	private static final String GENERATE_CSV				="c";
+	private static final String GENERATE_CSV_LONG			="no-csv";
 
 	private static class OptionComparator<T extends Option> implements Comparator<T> {
-	    private static final String OPTS_ORDER = "xonspdzefg";
+	    private static final String OPTS_ORDER = "xonspdzefgmc";
 
 	    @Override
 		public int compare(T o1, T o2) {
@@ -194,7 +200,13 @@ public class DatacenterGeneratorLauncher {
 			
 			DatacenterMetamodelConfig config = new DatacenterMetamodelConfig(metamodelResource, range, seed);
 			DatacenterMetamodelGenerator modelGen = new DatacenterMetamodelGenerator(config);
-
+			
+			if (commandLine.hasOption(GENERATE_CSV))
+				config.setGenerateCSV(false);
+			
+			if (commandLine.hasOption(GENERATE_MODEL))
+				config.setGenerateModel(false);
+			
 			if (commandLine.hasOption(OUTPUT_DIR)) {
 				String outDir = commandLine.getOptionValue(OUTPUT_DIR);
 				modelGen.setSamplesPath(Paths.get(outDir));
@@ -377,7 +389,16 @@ public class DatacenterGeneratorLauncher {
 		factorOption.setLongOpt(FACTOR_LONG);
 		factorOption.setDescription("The # tasks per machine factor (default 64)");
 		
-
+		Option modelOption = OptionBuilder.create(GENERATE_MODEL);
+		modelOption.setLongOpt(GENERATE_MODEL_LONG);
+		modelOption.setDescription("Turns off the EMF model generation");
+		
+		Option csvOption = OptionBuilder.create(GENERATE_CSV);
+		csvOption.setLongOpt(GENERATE_CSV_LONG);
+		csvOption.setDescription("Turns off the CSV generation");
+		
+		
+		
 		options.addOption(outDirOpt);
 		options.addOption(nModelsOpt);
 		options.addOption(sizeOption);
@@ -389,6 +410,8 @@ public class DatacenterGeneratorLauncher {
 		options.addOption(forceOption);
 		options.addOption(diagnoseOption);
 		options.addOption(factorOption);
+		options.addOption(csvOption);
+		options.addOption(modelOption);
 	}
 
 }
