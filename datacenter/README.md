@@ -16,7 +16,7 @@ $ java -jar datacenter.jar <program arguments>
 Although the generator is provided with default parameters, for generating models for different tastes, a set of parameters can be configured as shown in the *usage information*:
 
 ```
-$ sage: java -jar <this-file.jar> [-v <properties deviation>] [-x] [-o
+$ usage: java -jar <this-file.jar> [-v <properties deviation>] [-x] [-o
        <path_to_output.dir>] [-n <models>] [-s <size>] [-p <proportion>] [-d
        <degree>] [-z <size>] [-e <seed>] [-f] [-g]
  -v,--properties-variation <properties deviation>   Variation ([0..1]) in the
@@ -48,6 +48,10 @@ $ sage: java -jar <this-file.jar> [-v <properties deviation>] [-x] [-o
                                                     errors
  -g,--diagnose                                      Run diagnosis on the result
                                                     model
+ -m,--no-model                                      Turns off the EMF model
+                                                    generation
+ -c,--no-csv                                        Turns off the CSV generation
+
 ```
 
 ## Credits
