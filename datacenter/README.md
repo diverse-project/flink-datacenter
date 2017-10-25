@@ -2,8 +2,8 @@
 
 This program produces sets of random instances for a simplified Datacenter metamodel. This generator is deterministic, and provides the same set of result instances when a seed is specified.
 
-The instantiation process is guided by two main parameters *topology size* (i.e., expected number of machines that are desired to be generated) and task to machine factor that decides th average of tasks to be assigned to each machine.
-The generator allows exporting the generated models to its CSV counter-part.
+The instantiation process is guided by two main parameters *topology size* (i.e., expected number of machines that are desired to be generated) and *task to machine factor* that decides the average of tasks to be assigned to each machine.
+The generator allows exporting the generated models to their CSV counter-part.
 
 ## Running the random generation
 
