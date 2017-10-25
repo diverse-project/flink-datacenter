@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/datacenter/src" modelPluginID="datacenter" modelName="Datacenter"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" reflectiveDelegation="true"
+    importerID="org.eclipse.emf.importer.ecore" featureDelegation="Reflective" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>datacenter.ecore</foreignModel>
+  <genPackages prefix="Datacenter" disposableProviderFactory="true" ecorePackage="datacenter.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="datacenter.ecore#//Status">
+      <genEnumLiterals ecoreEnumLiteral="datacenter.ecore#//Status/FAILED"/>
+      <genEnumLiterals ecoreEnumLiteral="datacenter.ecore#//Status/SUCCEDED"/>
+      <genEnumLiterals ecoreEnumLiteral="datacenter.ecore#//Status/IN_PROGRESS"/>
+      <genEnumLiterals ecoreEnumLiteral="datacenter.ecore#//Status/ABORTED"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="datacenter.ecore#//DynamicElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//DynamicElement/ID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//DynamicElement/timestamp"/>
+    </genClasses>
+    <genClasses ecoreClass="datacenter.ecore#//CloudNetwork">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//CloudNetwork/ID"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datacenter.ecore#//CloudNetwork/servers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datacenter.ecore#//CloudNetwork/jobs"/>
+    </genClasses>
+    <genClasses ecoreClass="datacenter.ecore#//Server">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datacenter.ecore#//Server/localization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datacenter.ecore#//Server/hostedMachines"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference datacenter.ecore#//Server/network"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Server/totalCores"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Server/totalMemory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Server/totalDisk"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Server/remainingMemory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Server/remainingCores"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Server/remainingDisk"/>
+    </genClasses>
+    <genClasses ecoreClass="datacenter.ecore#//Machine">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference datacenter.ecore#//Machine/server"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Machine/assignedCores"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Machine/assignedMemory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Machine/assignedDisk"/>
+    </genClasses>
+    <genClasses ecoreClass="datacenter.ecore#//Job">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference datacenter.ecore#//Job/network"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datacenter.ecore#//Job/tasks"/>
+    </genClasses>
+    <genClasses ecoreClass="datacenter.ecore#//Task">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Task/durantion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Task/consumedDisk"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Task/consumedCPUrate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//Task/status"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference datacenter.ecore#//Task/parentJob"/>
+    </genClasses>
+    <genClasses ecoreClass="datacenter.ecore#//GeoLocation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//GeoLocation/longitude"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datacenter.ecore#//GeoLocation/latitude"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
