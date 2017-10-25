@@ -18,7 +18,7 @@ Although the generator is provided with default parameters, for generating model
 ```
 $ usage: java -jar <this-file.jar> [-v <properties deviation>] [-x] [-o
        <path_to_output.dir>] [-n <models>] [-s <size>] [-p <proportion>] [-d
-       <degree>] [-z <size>] [-e <seed>] [-f] [-g]
+       <degree>] [-z <size>] [-e <seed>] [-f] [-g] [-m] [-c]
  -v,--properties-variation <properties deviation>   Variation ([0..1]) in the
                                                     properties' size (defaults
                                                     to 0.1)
