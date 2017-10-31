@@ -43,8 +43,13 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
-import datacenter.DatacenterPackage;
-import datacenter.impl.DatacenterFactoryImpl;
+
+import datacenter.core.CorePackage;
+import datacenter.core.impl.CoreFactoryImpl;
+import datacenter.events.EventsPackage;
+import datacenter.events.impl.EventsFactoryImpl;
+import datacenter.types.TypesPackage;
+import datacenter.types.impl.TypesFactoryImpl;
 import fr.inria.atlanmod.instantiator.GenerationException;
 import fr.inria.atlanmod.instantiator.GenericMetamodelConfig;
 import jline.TerminalFactory;
@@ -101,6 +106,7 @@ public class DatacenterGeneratorLauncher {
 	private static final String GENERATE_CSV				="c";
 	private static final String GENERATE_CSV_LONG			="no-csv";
 
+	
 	private static class OptionComparator<T extends Option> implements Comparator<T> {
 	    private static final String OPTS_ORDER = "xonspdzefgmc";
 
@@ -118,8 +124,14 @@ public class DatacenterGeneratorLauncher {
 					EcorePackage.eNS_PREFIX, new EcoreResourceFactoryImpl());
 			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 					Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-			DatacenterPackage.eINSTANCE.eClass();
-			EPackage.Registry.INSTANCE.put(DatacenterPackage.eNS_URI, new DatacenterFactoryImpl());
+			
+			CorePackage.eINSTANCE.eClass();
+			EventsPackage.eINSTANCE.eClass();
+			TypesPackage.eINSTANCE.eClass();
+			
+			EPackage.Registry.INSTANCE.put(CorePackage.eNS_URI, new CoreFactoryImpl());
+			EPackage.Registry.INSTANCE.put(EventsPackage.eNS_URI, new EventsFactoryImpl());
+			EPackage.Registry.INSTANCE.put(TypesPackage.eNS_URI, new TypesFactoryImpl());
 			
 		}
 		
@@ -135,7 +147,9 @@ public class DatacenterGeneratorLauncher {
 			
 			Resource metamodelResource = new XMIResourceImpl(URI.createFileURI("model/datacenter.ecore"));
 			metamodelResource.load(Collections.emptyMap());
-			metamodelResource.getContents().add(DatacenterPackage.eINSTANCE);
+			metamodelResource.getContents().add(CorePackage.eINSTANCE);
+			metamodelResource.getContents().add(EventsPackage.eINSTANCE);
+			metamodelResource.getContents().add(TypesPackage.eINSTANCE);
 			EcoreUtil.resolveAll(metamodelResource);
 			{
 				BasicDiagnostic diagnosticChain = diagnoseResource(metamodelResource);
@@ -216,7 +230,7 @@ public class DatacenterGeneratorLauncher {
 			
 			if (commandLine.hasOption(FACTOR)) {
 				Number number = (Number) commandLine.getParsedOptionValue(FACTOR);
-				config.setFactor((int) Math.min(Integer.MAX_VALUE, number.longValue()));	
+				config.setFactor((int) Math.min(Integer.MAX_VALUE, number.intValue()));	
 			}
 			int numberOfModels = 1;
 			if (commandLine.hasOption(N_MODELS)) {
@@ -377,6 +391,12 @@ public class DatacenterGeneratorLauncher {
 		degreeOption.setType(Number.class);
 		degreeOption.setArgs(1);
 		
+		Option factorOption = OptionBuilder.create(FACTOR);
+		factorOption.setLongOpt(FACTOR_LONG);
+		factorOption.setArgName("factor");
+		factorOption.setArgs(1);
+		factorOption.setDescription("The # tasks per machine factor (default 64)");
+		
 		Option forceOption = OptionBuilder.create(FORCE);
 		forceOption.setLongOpt(FORCE_LONG);
 		forceOption.setDescription("Force the generation, even if input metamodels contain errors");
@@ -385,9 +405,7 @@ public class DatacenterGeneratorLauncher {
 		diagnoseOption.setLongOpt(DIAGNOSE_LONG);
 		diagnoseOption.setDescription("Run diagnosis on the result model");
 		
-		Option factorOption = OptionBuilder.create(FACTOR);
-		factorOption.setLongOpt(FACTOR_LONG);
-		factorOption.setDescription("The # tasks per machine factor (default 64)");
+	
 		
 		Option modelOption = OptionBuilder.create(GENERATE_MODEL);
 		modelOption.setLongOpt(GENERATE_MODEL_LONG);
@@ -397,8 +415,7 @@ public class DatacenterGeneratorLauncher {
 		csvOption.setLongOpt(GENERATE_CSV_LONG);
 		csvOption.setDescription("Turns off the CSV generation");
 		
-		
-		
+				
 		options.addOption(outDirOpt);
 		options.addOption(nModelsOpt);
 		options.addOption(sizeOption);

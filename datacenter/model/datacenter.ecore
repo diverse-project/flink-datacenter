@@ -1,131 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="datacenter" nsURI="http://flink/datacenter" nsPrefix="datacenter">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="datacenter" nsURI="http://datacenter/" nsPrefix="datacenter">
   <eAnnotations source="http://www.eclipse.org/OCL/Import">
     <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
   </eAnnotations>
-  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
-    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
-    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
-  </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="DynamicElement" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timestamp" lowerBound="1"
-        eType="#//TimeStamp"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CloudNetwork">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="servers" ordered="false"
-        upperBound="-1" eType="#//Server" containment="true" eOpposite="#//Server/network">
-      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
-        <details key="nullFree" value="false"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="jobs" ordered="false" upperBound="-1"
-        eType="#//Job" containment="true" eOpposite="#//Job/network">
-      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
-        <details key="nullFree" value="false"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Server" eSuperTypes="#//DynamicElement">
+  <eSubpackages name="core" nsURI="http://datacenter/core" nsPrefix="core">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="CPUavailabilityCheck memoryAvailabilityCheck"/>
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
     </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-      <details key="CPUavailabilityCheck" value="Tuple {&#xA;&#x9;message : String = 'Cannot assign more than available resources',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;remainingCores >= 0&#xA;}.status"/>
-      <details key="memoryAvailabilityCheck" value="Tuple {&#xA;&#x9;message : String = 'Cannot assign more than available resources',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;remainingMemory >=0&#xA;}.status"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
-        eType="#//GeoLocation" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hostedMachines" ordered="false"
-        lowerBound="1" upperBound="-1" eType="#//Machine" containment="true" eOpposite="#//Machine/server">
-      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
-        <details key="nullFree" value="false"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DynamicElement" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="timestamp" lowerBound="1"
+          eType="#//types/TimeStamp"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CloudNetwork">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="servers" ordered="false"
+          upperBound="-1" eType="#//core/Server" containment="true" eOpposite="#//core/Server/network">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="jobs" ordered="false"
+          upperBound="-1" eType="#//core/Job" containment="true" eOpposite="#//core/Job/network">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Server" eSuperTypes="#//core/DynamicElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="CPUavailabilityCheck memoryAvailabilityCheck"/>
       </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="network" lowerBound="1"
-        eType="#//CloudNetwork" eOpposite="#//CloudNetwork/servers"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalCores" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalMemory" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalDisk" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="remainingMemory" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" volatile="true"
-        derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="derivation" value="hostedMachines->collect(assignedMemory)->sum()"/>
+        <details key="CPUavailabilityCheck" value="Tuple {&#xA;&#x9;message : String = 'Cannot assign more than available resources',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;remainingCores >= 0&#xA;}.status"/>
+        <details key="memoryAvailabilityCheck" value="Tuple {&#xA;&#x9;message : String = 'Cannot assign more than available resources',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;remainingMemory >=0&#xA;}.status"/>
       </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="remainingCores" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" volatile="true"
-        derived="true">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+          eType="#//core/GeoLocation" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="hostedMachines" ordered="false"
+          lowerBound="1" upperBound="-1" eType="#//core/Machine" containment="true"
+          eOpposite="#//core/Machine/server">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" lowerBound="1"
+          eType="#//core/CloudNetwork" eOpposite="#//core/CloudNetwork/servers"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalCores" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalMemory" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalDisk" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="remainingMemory" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" volatile="true"
+          derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+          <details key="derivation" value="hostedMachines->collect(assignedMemory)->sum()"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="remainingCores" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" volatile="true"
+          derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+          <details key="derivation" value="hostedMachines->collect(assignedCores)->sum()"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="remainingDisk" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" volatile="true"
+          derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+          <details key="derivation" value="hostedMachines->collect(assignedDisk)->sum()"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Machine" eSuperTypes="#//core/DynamicElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="server" lowerBound="1"
+          eType="#//core/Server" eOpposite="#//core/Server/hostedMachines"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedCores" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedMemory" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedDisk" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Job" eSuperTypes="#//core/DynamicElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" lowerBound="1"
+          eType="#//core/CloudNetwork" eOpposite="#//core/CloudNetwork/jobs"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tasks" ordered="false"
+          upperBound="-1" eType="#//core/Task" containment="true" eOpposite="#//core/Task/parentJob">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Task" eSuperTypes="#//core/DynamicElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="durantion" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumedDisk" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumedCPUrate" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parentJob" lowerBound="1"
+          eType="#//core/Job" eOpposite="#//core/Job/tasks"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="hostMachine" lowerBound="1"
+          eType="#//core/Machine"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GeoLocation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="latitudeCheck longitudeCheck"/>
+      </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="derivation" value="hostedMachines->collect(assignedCores)->sum()"/>
+        <details key="latitudeCheck" value="Tuple {&#xA;&#x9;message : String = 'Latitude should range from -90 to 90 degrees',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;latitude  > 90 and latitude > -90&#xA;}.status"/>
+        <details key="longitudeCheck" value="Tuple {&#xA;&#x9;message : String = 'Longitude should range from 0 to 180 degrees',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;longitude > 0 and longitude &lt; 180&#xA;}.status"/>
       </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="remainingDisk" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" volatile="true"
-        derived="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="derivation" value="hostedMachines->collect(assignedDisk)->sum()"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Machine" eSuperTypes="#//DynamicElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="server" lowerBound="1"
-        eType="#//Server" eOpposite="#//Server/hostedMachines"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedCores" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedMemory" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedDisk" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Job" eSuperTypes="#//DynamicElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="network" lowerBound="1"
-        eType="#//CloudNetwork" eOpposite="#//CloudNetwork/jobs"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tasks" ordered="false"
-        upperBound="-1" eType="#//Task" containment="true" eOpposite="#//Task/parentJob">
-      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
-        <details key="nullFree" value="false"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Task" eSuperTypes="#//DynamicElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="durantion" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumedDisk" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumedCPUrate" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentJob" lowerBound="1"
-        eType="#//Job" eOpposite="#//Job/tasks"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GeoLocation">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="latitudeCheck longitudeCheck"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-      <details key="latitudeCheck" value="Tuple {&#xA;&#x9;message : String = 'Latitude should range from -90 to 90 degrees',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;latitude  > 90 and latitude > -90&#xA;}.status"/>
-      <details key="longitudeCheck" value="Tuple {&#xA;&#x9;message : String = 'Longitude should range from 0 to 180 degrees',&#xA;&#x9;status : Boolean = &#xA;&#x9;&#x9;&#x9;longitude > 0 and longitude &lt; 180&#xA;}.status"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="longitude" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="latitude" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Status">
-    <eLiterals name="FAILED"/>
-    <eLiterals name="SUCCEDED" value="1"/>
-    <eLiterals name="IN_PROGRESS" value="3"/>
-    <eLiterals name="ABORTED" value="2"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="TimeStamp" instanceClassName="java.sql.Timestamp"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="longitude" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="latitude" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="types" nsURI="http://datacenter/types/" nsPrefix="types">
+    <eClassifiers xsi:type="ecore:EDataType" name="TimeStamp" instanceClassName="java.sql.Timestamp"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="Status">
+      <eLiterals name="FAILED"/>
+      <eLiterals name="SUCCEDED" value="1"/>
+      <eLiterals name="IN_PROGRESS" value="3"/>
+      <eLiterals name="ABORTED" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="Action">
+      <eLiterals name="NEW"/>
+      <eLiterals name="REMOVE" value="1"/>
+      <eLiterals name="UPDATE" value="2"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="events" nsURI="http://datacenter/events" nsPrefix="events">
+    <eClassifiers xsi:type="ecore:EClass" name="EventStream">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="events" ordered="false"
+          upperBound="-1" eType="#//events/Event" containment="true">
+        <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+          <details key="nullFree" value="false"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Event">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="timestamp" lowerBound="1"
+          eType="#//types/TimeStamp"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" lowerBound="1"
+          eType="#//types/Action"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>

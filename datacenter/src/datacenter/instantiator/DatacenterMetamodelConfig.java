@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import com.google.common.collect.ImmutableSet;
 
+import datacenter.core.CorePackage;
 import fr.inria.atlanmod.instantiator.GenericMetamodelConfig;
 
 public class DatacenterMetamodelConfig extends GenericMetamodelConfig {
@@ -31,7 +32,7 @@ public class DatacenterMetamodelConfig extends GenericMetamodelConfig {
 	
 	@Override
 	public EClass getNextRootEClass (ImmutableSet<EClass> rootEClasses) {
-		return datacenter.DatacenterPackage.Literals.CLOUD_NETWORK;
+		return CorePackage.Literals.CLOUD_NETWORK;
 	}
 	
 	@Override

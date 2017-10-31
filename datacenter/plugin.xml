@@ -9,8 +9,24 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated datacenter -->
       <package
-            uri="http://flink/datacenter"
-            class="datacenter.DatacenterPackage"
+            uri="http://datacenter/core"
+            class="datacenter.core.CorePackage"
+            genModel="model/datacenter.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated datacenter -->
+      <package
+            uri="http://datacenter/types/"
+            class="datacenter.types.TypesPackage"
+            genModel="model/datacenter.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated datacenter -->
+      <package
+            uri="http://datacenter/events"
+            class="datacenter.events.EventsPackage"
             genModel="model/datacenter.genmodel"/>
    </extension>
 

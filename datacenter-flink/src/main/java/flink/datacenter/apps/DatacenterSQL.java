@@ -20,13 +20,25 @@ import flink.datacenter.csv.mappers.Task;
 
 public class DatacenterSQL {
 	
-	private static final String TASK_FILE = "tf";
+	private static final String TASK_FILE = "t";
 	
 	private static final String TASK_FILE_LONG = "tasks-file";	
 	
-	private static final String MACHINE_FILE = "mf";
+	private static final String MACHINE_FILE = "m";
 	
 	private static final String MACHINE_FILE_LONG = "machines-file";
+	
+	private static final String JOB_FILE = "j";
+	
+	private static final String JOB_FILE_LONG = "job-file";
+			
+	private static final String SERVER_FILE = "s";
+	
+	private static final String SERVER_FILE_LONG = "server-file";
+	
+	private static final String NETWORK_FILE_LONG = "network-file";
+	
+	private static final String NETWORK_FILE = "n";
 	
 	private static final String PARALLELISM = "p";	
 	
@@ -46,13 +58,6 @@ public class DatacenterSQL {
 		super();
 		
 	}
-
-	
-	
-
-
-	
-	
 	
 	/**
 	 * @param args
@@ -60,10 +65,11 @@ public class DatacenterSQL {
 	public static void main(String[] args) {
 		
 		Options options = new Options();
-		options.addOption(new Option(TASK_FILE, TASK_FILE_LONG, true, "The path to the tasks csv File-- default a file "));
+		options.addOption(new Option(TASK_FILE, TASK_FILE_LONG, true, "The path to the tasks csv File-- default a toy example shipped with the app "));
 		options.addOption(new Option(MACHINE_FILE, MACHINE_FILE_LONG, true, "The path to the machines csv File-- default a file "));
-		options.addOption(PARALLELISM, PARALLELISM_LONG, true, "Specifies the parallelism value --default is 1");
-		
+		options.addOption(JOB_FILE,JOB_FILE_LONG,true, "The path to the tasks csv File-- default a file");
+		options.addOption(SERVER_FILE,SERVER_FILE_LONG,true,"The path to the servers CSV file");
+		options.addOption(PARALLELISM, PARALLELISM_LONG, true, "Specifies the parallelism value --default is 1");		
 		try {
 			CommandLine cli = new DefaultParser().parse(options, args);
 			if (cli.hasOption(TASK_FILE)) {
@@ -84,7 +90,7 @@ public class DatacenterSQL {
 
 		StreamTableEnvironment tableEnv = TableEnvironment.getTableEnvironment(env);
 		
-		TableSource tasksTable = 	CsvTableSource.builder()
+		TableSource<?> tasksTable = 	CsvTableSource.builder()
 												   .path(tasksPath)
 												   .fieldDelimiter(",")
 												   .field("startTime", Types.INT)
@@ -128,8 +134,6 @@ public class DatacenterSQL {
 		tasksStream.print();
 		
 		tableEnv.execEnv();
-		
-		
-	    
+		   
 	}
 }

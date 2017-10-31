@@ -25,14 +25,14 @@ import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 
-import datacenter.DatacenterPackage;
+import datacenter.core.CorePackage;
 import fr.obeo.emf.specimen.ISpecimenConfiguration;
 import fr.obeo.emf.specimen.SpecimenGenerator;
 
 public class DatacenterSpecimenGenerator extends SpecimenGenerator {
 
 	protected EObject rootNetwork;
-	protected DatacenterPackage pck = DatacenterPackage.eINSTANCE;
+	protected CorePackage pck = CorePackage.eINSTANCE;
 	public DatacenterSpecimenGenerator(ISpecimenConfiguration configuration, long seed) {
 		super(configuration, seed);
 	}
@@ -67,7 +67,7 @@ public class DatacenterSpecimenGenerator extends SpecimenGenerator {
 			} else {
 				// generate more servers
 				generateEContainmentReference(rootNetwork,
-											  DatacenterPackage.Literals.CLOUD_NETWORK__SERVERS,
+											  CorePackage.Literals.CLOUD_NETWORK__SERVERS,
 											  indexByKind);
 			}
 		}
@@ -77,9 +77,10 @@ public class DatacenterSpecimenGenerator extends SpecimenGenerator {
 		currentDepth = 0;
 		currentMaxDepth = Integer.MAX_VALUE;
 		goalObjects *= ((DatacenterMetamodelConfig)configuration).getFactor();
+		
 		while(currentObjects < goalObjects ){
 			generateEContainmentReference(rootNetwork,
-					  DatacenterPackage.Literals.CLOUD_NETWORK__JOBS,
+					  CorePackage.Literals.CLOUD_NETWORK__JOBS,
 					  indexByKind);
 		}
 		
@@ -190,7 +191,7 @@ public class DatacenterSpecimenGenerator extends SpecimenGenerator {
 
 	protected Object nextValueForAttribute(EAttribute eAttribute) {
 		// TODO Auto-generated method stub
-		if(eAttribute.equals(DatacenterPackage.eINSTANCE.getDynamicElement_ID()))
+		if(eAttribute.equals(pck.getDynamicElement_ID()))
 				return nextValue(String.class);
 		if(eAttribute.equals(pck.getGeoLocation_Latitude()))
 				return generator.nextFloat()* (90.0f - (-90.0f)) + (-90.0f);

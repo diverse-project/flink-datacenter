@@ -7,10 +7,14 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: datacenter,
- datacenter.impl,
- datacenter.instantiator,
- datacenter.util
+Export-Package: datacenter.core,
+ datacenter.core.impl,
+ datacenter.core.util,
+ datacenter.events,
+ datacenter.events.impl,
+ datacenter.events.util,
+ datacenter.types,
+ datacenter.types.impl
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

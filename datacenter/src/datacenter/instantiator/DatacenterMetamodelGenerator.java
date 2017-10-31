@@ -9,7 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
-import datacenter.DatacenterFactory;
+
+import datacenter.core.CoreFactory;
 import fr.inria.atlanmod.instantiator.GenerationException;
 import fr.inria.atlanmod.instantiator.GenericMetamodelConfig;
 import fr.inria.atlanmod.instantiator.GenericMetamodelGenerator;
@@ -18,7 +19,7 @@ public class DatacenterMetamodelGenerator extends GenericMetamodelGenerator{
 
 	private final static Logger LOGGER = Logger.getLogger(DatacenterMetamodelGenerator.class.getName());
 
-	protected DatacenterFactory factory; 
+	protected CoreFactory factory; 
 	
 	
 	public DatacenterMetamodelGenerator(GenericMetamodelConfig config) throws IllegalArgumentException {
@@ -57,7 +58,8 @@ public class DatacenterMetamodelGenerator extends GenericMetamodelGenerator{
 				}
 				if (((DatacenterMetamodelConfig) config).isGenerateCSV()) {
 					LOGGER.info(MessageFormat.format("Exporting resource {0} to CSV", resource.getURI()));
-						exportToCSV(resource);
+					Resource eventsResource = resourceSet.createResource(formatURI(getMetaModelResourceName()+"-events", 0, averageSize));
+						exportToCSV(resource, eventsResource);
 				}
 				LOGGER.info(MessageFormat.format("Unloading the content of resource {0}", resource.getURI()));
 				resource.unload();
@@ -71,17 +73,20 @@ public class DatacenterMetamodelGenerator extends GenericMetamodelGenerator{
 	}
 
 	
-	protected void exportToCSV(Resource resource) throws Exception {
-		DatacenterCSVSwitch csvSwitch = new DatacenterCSVSwitch(samplesPath.toString());
+	protected void exportToCSV(Resource resource, Resource eventsResource) throws Exception {
+		//
+		DatacenterCSVSwitch csvSwitch = new DatacenterCSVSwitch(samplesPath.toString(), eventsResource);
 		Iterator<EObject> resourceIterator = resource.getAllContents();
-		
-		EObject cursor;
-		
-		while (resourceIterator.hasNext()) {
-			cursor = resourceIterator.next();
-			csvSwitch.doSwitch(cursor);
-		}
-		
-		csvSwitch.close();
+		try {
+					
+			EObject cursor;		
+			while (resourceIterator.hasNext()) {
+				cursor = resourceIterator.next();
+				csvSwitch.doSwitch(cursor);
+			}
+			csvSwitch.close();
+		} catch (Exception e) {
+			throw e;
+		}	
 	}
 }
